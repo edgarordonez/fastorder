@@ -10,18 +10,19 @@ object Dependencies {
     val ScalaTest         = "3.0.5"
   }
 
-  val production = Seq(
+  val shared = Seq(
     "com.github.nscala-time" %% "nscala-time"          % Versions.NScalaTime,
     "com.lihaoyi"            %% "pprint"               % Versions.Pprint,
-    "com.typesafe.akka"      %% "akka-actor"          % Versions.Akka,
+    "com.typesafe.akka"      %% "akka-actor"           % Versions.Akka,
     "com.typesafe.akka"      %% "akka-stream"          % Versions.Akka,
     "com.typesafe.akka"      %% "akka-http"            % Versions.AkkaHttp,
-    "com.typesafe.akka"      %% "akka-http-spray-json" % Versions.AkkaHttpSprayJson
+    "com.typesafe.akka"      %% "akka-http-spray-json" % Versions.AkkaHttpSprayJson,
+    "org.scalatest"          %% "scalatest"            % Versions.ScalaTest % Test,
+    "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka % Test,
+    "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp % Test
   )
 
-  val test = Seq(
-    "org.scalatest"     %% "scalatest"         % Versions.ScalaTest % Test,
-    "com.typesafe.akka" %% "akka-testkit"      % Versions.Akka      % Test,
-    "com.typesafe.akka" %% "akka-http-testkit" % Versions.AkkaHttp  % Test
-  )
+  val fastorder = Seq()
+
+  val fastcontrol = Seq()
 }
