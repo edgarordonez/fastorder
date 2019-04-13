@@ -31,7 +31,7 @@ then
 else
     echo "* Checking production code style."
 
-    sbt scalastyle > /dev/null
+    sbt scalafmt > /dev/null
     productionScalastyle=$?
 
     if [ $productionScalastyle -ne 0 ]
@@ -40,7 +40,7 @@ else
     else
         echo "* Checking test code style."
 
-        sbt test:scalastyle > /dev/null
+        sbt test:scalafmt > /dev/null
         testScalastyle=$?
 
         if [ $testScalastyle -ne 0 ]
