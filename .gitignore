@@ -7,3 +7,5 @@ project/target
 .virtualenv
 __pycache__
 *.pyc
+src/*/target
+app/target
