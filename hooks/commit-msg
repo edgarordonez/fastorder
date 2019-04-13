@@ -1,0 +1,13 @@
+#!/bin/bash
+
+commitizen_regex='(feat|fix|docs|style|refactor|perf|test|chore)\(([a-z0-9)]{2,20})\):[a-z\d\s\W]*'
+commit_msg=$(cat "${1:?Missing commit message file}")
+
+if [[ $commit_msg =~ $commitizen_regex ]]
+then
+    echo "... done. looks a good commit message."
+    exit 0
+else
+    echo "CANCELLING commit due to the message don't respect commitizen. Re: conventional-changelog.github.io"
+    exit 1
+fi
