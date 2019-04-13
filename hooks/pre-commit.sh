@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# checks if locally staged changes are formatted properly. Ignores non-staged changes.
+# Intended as git pre-commit hook
+
+PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
+echo "Doing some Checks."
+echo "* Moving to the project directory."
+
+echo "* Moving to the project directory."
+_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$( echo $_DIR | sed 's/\/.git\/hooks$//' )
+
+echo "* Stashing non-staged changes so we don't check them."
+git diff --quiet
+hadNoNonStagedChanges=$?
+
+if ! [ $hadNoNonStagedChanges -eq 0 ]
+then
+    git stash --keep-index -u > /dev/null
+fi
+
+echo "* Compiles?"
+sbt test:compile > /dev/null
+compiles=$?
+
+if [ $compiles -ne 0 ]
+then
+    echo "* No!"
+else
+    echo "* Checking production code style."
+
+    sbt scalastyle > /dev/null
+    productionScalastyle=$?
+
+    if [ $productionScalastyle -ne 0 ]
+    then
+        echo "Error checking production code style."
+    else
+        echo "* Checking test code style."
+
+        sbt test:scalastyle > /dev/null
+        testScalastyle=$?
+
+        if [ $testScalastyle -ne 0 ]
+        then
+            echo "Error checking test code style."
+        fi
+    fi
+fi
+
+echo "* Applying the stash with the non-staged changes."
+if ! [ $hadNoNonStagedChanges -eq 0 ]
+then
+    sleep 1 && git stash pop --index > /dev/null & # sleep because otherwise commit fails when this leads to a merge conflict
+fi
+
+if [ $compiles -eq 0 ] && [ $productionScalastyle -eq 0 ] && [ $testScalastyle -eq 0 ]
+then
+    echo "... done. Proceeding with commit."
+    exit 0
+elif [ $compiles -ne 0 ]
+then
+    echo "CANCELLING commit due to compile error (run 'sbt test:compile' for more information)."
+    exit 1
+elif [ $productionScalastyle -ne 0 ]
+then
+    echo "CANCELLING commit due to production code style error (run 'sbt scalastyle' for more information)."
+    exit 2
+else
+    echo "CANCELLING commit due to test code style error (run 'sbt test:scalastyle' for more information)."
+    exit 3
+fi
