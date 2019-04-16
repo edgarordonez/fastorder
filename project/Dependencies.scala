@@ -18,8 +18,8 @@ object Dependencies {
     "com.typesafe.akka"      %% "akka-http"            % Versions.AkkaHttp,
     "com.typesafe.akka"      %% "akka-http-spray-json" % Versions.AkkaHttpSprayJson,
     "org.scalatest"          %% "scalatest"            % Versions.ScalaTest % Test,
-    "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka % Test,
-    "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp % Test
+    "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka      % Test,
+    "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp  % Test
   )
 
   val fastorder = Seq()
