@@ -1,13 +1,14 @@
 package app.fastorder.fastorder.api
 
+import scala.io.StdIn
+import scala.concurrent.ExecutionContextExecutor
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
-
-import scala.io.StdIn
-import scala.concurrent.ExecutionContextExecutor
 import com.typesafe.config.ConfigFactory
+import app.fastorder.fastorder.waiter.infrastructure.dependency_injection.WaiterModuleDependencyContainer
+import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
+import app.fastorder.shared.infrastructure.doobie.JdbcConfig
 
 object WebServer {
   def start(): Unit = {
@@ -18,13 +19,18 @@ object WebServer {
     val host         = serverConfig.getString("http-server.host")
     val port         = serverConfig.getInt("http-server.port")
 
-    val sharedDependencies = new SharedModuleDependencyContainer(actorSystemName)
+    val dbConfig = JdbcConfig(appConfig.getConfig("database"))
+
+    val sharedDependencies = new SharedModuleDependencyContainer(actorSystemName, dbConfig)
 
     implicit val system: ActorSystem                        = sharedDependencies.system
     implicit val materializer: ActorMaterializer            = sharedDependencies.materializer
     implicit val executionContext: ExecutionContextExecutor = sharedDependencies.executionContext
 
-    val container = new EntryPointDependencyContainer
+    val container = new EntryPointDependencyContainer(
+      new WaiterModuleDependencyContainer(sharedDependencies.doobieDbConnection)
+    )
+
     val routes    = new Routes(container)
 
     val bindingFuture = Http().bindAndHandle(routes.all, host, port)
