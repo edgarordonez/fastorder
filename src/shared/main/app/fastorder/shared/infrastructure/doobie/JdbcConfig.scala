@@ -4,9 +4,9 @@ import com.typesafe.config.Config
 
 object JdbcConfig {
   def apply(config: Config): JdbcConfig = JdbcConfig(
-    driver   = config.getString("driver"),
-    url      = config.getString("url"),
-    user     = config.getString("user"),
+    driver = config.getString("driver"),
+    url = config.getString("url"),
+    user = config.getString("user"),
     password = config.getString("password"),
   )
 }
