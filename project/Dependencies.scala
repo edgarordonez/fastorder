@@ -8,6 +8,8 @@ object Dependencies {
     val NScalaTime        = "2.22.0"
     val Pprint            = "0.5.4"
     val ScalaTest         = "3.0.5"
+    val Doobie            = "0.6.0"
+    val MysqlConnector    = "8.0.15"
   }
 
   val shared = Seq(
@@ -17,6 +19,8 @@ object Dependencies {
     "com.typesafe.akka"      %% "akka-stream"          % Versions.Akka,
     "com.typesafe.akka"      %% "akka-http"            % Versions.AkkaHttp,
     "com.typesafe.akka"      %% "akka-http-spray-json" % Versions.AkkaHttpSprayJson,
+    "org.tpolecat"           %% "doobie-core"          % Versions.Doobie,
+    "mysql"                  % "mysql-connector-java"  % Versions.MysqlConnector,
     "org.scalatest"          %% "scalatest"            % Versions.ScalaTest % Test,
     "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka      % Test,
     "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp  % Test
