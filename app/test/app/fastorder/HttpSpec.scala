@@ -6,10 +6,23 @@ import akka.util.ByteString
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{Matchers, WordSpec}
 import app.fastorder.fastorder.api.{EntryPointDependencyContainer, Routes}
+import app.fastorder.fastorder.waiter.infrastructure.dependency_injection.WaiterModuleDependencyContainer
+import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
+import app.fastorder.shared.infrastructure.doobie.JdbcConfig
+import com.typesafe.config.ConfigFactory
 
 abstract class HttpSpec extends WordSpec with Matchers with ScalaFutures with ScalatestRouteTest {
-  val container = new EntryPointDependencyContainer
-  val routes    = new Routes(container)
+  val appConfig       = ConfigFactory.load("application")
+  val actorSystemName = appConfig.getString("main-actor-system.name")
+
+  val dbConfig = JdbcConfig(appConfig.getConfig("acceptance-tests-database"))
+
+  val sharedDependencies = new SharedModuleDependencyContainer(actorSystemName, dbConfig)
+
+  val container = new EntryPointDependencyContainer(
+    new WaiterModuleDependencyContainer(sharedDependencies.doobieDbConnection)
+  )
+  val routes = new Routes(container)
 
   protected def posting[T](path: String, request: String)(body: ⇒ T): T =
     HttpRequest(
