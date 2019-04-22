@@ -7,7 +7,8 @@ import app.fastorder.fastorder.waiter.application.search.WaiterSearcher
 import app.fastorder.fastorder.waiter.application.register.WaiterRegister
 import app.fastorder.fastorder.waiter.domain.WaiterRepository
 
-final class WaiterModuleDependencyContainer(doobieDbConnection: DoobieDbConnection)(implicit executionContext: ExecutionContext) {
+final class WaiterModuleDependencyContainer(doobieDbConnection: DoobieDbConnection)(
+    implicit executionContext: ExecutionContext) {
   val repository: WaiterRepository = new DoobieMySqlWaiterRepository(doobieDbConnection)
 
   val waiterSearcher: WaiterSearcher = new WaiterSearcher(repository)

@@ -7,6 +7,6 @@ import app.fastorder.fastorder.waiter.infrastructure.dependency_injection.Waiter
 final class EntryPointDependencyContainer(waiterDependencies: WaiterModuleDependencyContainer) {
   val statusGetController = new StatusGetController
 
-  val waiterGetController = new WaiterGetController(waiterDependencies.waiterSearcher)
+  val waiterGetController  = new WaiterGetController(waiterDependencies.waiterSearcher)
   val waiterPostController = new WaiterPostController(waiterDependencies.waiterRegister)
 }

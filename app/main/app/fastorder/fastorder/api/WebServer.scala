@@ -31,7 +31,7 @@ object WebServer {
       new WaiterModuleDependencyContainer(sharedDependencies.doobieDbConnection)
     )
 
-    val routes    = new Routes(container)
+    val routes = new Routes(container)
 
     val bindingFuture = Http().bindAndHandle(routes.all, host, port)
 
