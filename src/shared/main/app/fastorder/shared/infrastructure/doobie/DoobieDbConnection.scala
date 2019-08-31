@@ -1,14 +1,15 @@
 package app.fastorder.shared.infrastructure.doobie
 
-import cats.effect.IO
+import scala.concurrent.{ExecutionContext, Future}
+import cats.effect.{ContextShift, IO}
 import doobie.util.transactor.Transactor
-import app.fastorder.shared.infrastructure.doobie.contextShift._
 import doobie.syntax.ConnectionIOOps
-
-import scala.concurrent.Future
+import doobie.util.transactor.Transactor.Aux
 
 final class DoobieDbConnection(jdbcConfig: JdbcConfig) {
-  val transactor = Transactor.fromDriverManager[IO](
+  implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
+
+  val transactor: Aux[IO, Unit] = Transactor.fromDriverManager[IO](
     jdbcConfig.driver,
     jdbcConfig.url,
     jdbcConfig.user,

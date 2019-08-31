@@ -1,6 +1,5 @@
 import sbt.{Tests, _}
 import sbt.Keys._
-import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
 
 object Configuration {
   val commonSettings = Seq(
@@ -32,7 +31,6 @@ object Configuration {
       Tests.Argument("-oDF")
     ),
     cancelable in Global := true,
-    scalafmtConfig := Some(file(".scalafmt.conf")),
     exportJars := true
   )
 }

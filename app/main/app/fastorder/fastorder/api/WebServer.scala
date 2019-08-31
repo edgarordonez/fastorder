@@ -2,11 +2,14 @@ package app.fastorder.fastorder.api
 
 import scala.io.StdIn
 import scala.concurrent.ExecutionContextExecutor
+import com.typesafe.config.ConfigFactory
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import com.typesafe.config.ConfigFactory
-import app.fastorder.fastorder.waiter.infrastructure.dependency_injection.WaiterModuleDependencyContainer
+import app.fastorder.fastorder.drinks.infrastructure.dependency_injection.DrinkModuleDependencyContainer
+import app.fastorder.fastorder.food.infrastructure.dependency_injection.FoodModuleDependencyContainer
+import app.fastorder.fastorder.order.infrastructure.dependency_injection.OrderModuleDependencyContainer
+import app.fastorder.fastorder.waiters.infrastructure.dependency_injection.WaiterModuleDependencyContainer
 import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
 import app.fastorder.shared.infrastructure.doobie.JdbcConfig
 
@@ -28,7 +31,10 @@ object WebServer {
     implicit val executionContext: ExecutionContextExecutor = sharedDependencies.executionContext
 
     val container = new EntryPointDependencyContainer(
-      new WaiterModuleDependencyContainer(sharedDependencies.doobieDbConnection)
+      new WaiterModuleDependencyContainer(sharedDependencies.doobieDbConnection),
+      new DrinkModuleDependencyContainer(sharedDependencies.doobieDbConnection),
+      new FoodModuleDependencyContainer(sharedDependencies.doobieDbConnection),
+      new OrderModuleDependencyContainer(sharedDependencies.doobieDbConnection)
     )
 
     val routes = new Routes(container)

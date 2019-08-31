@@ -1,14 +1,13 @@
 version: '3'
 
 services:
-  mysql:
-    container_name: fastorder-mysql
-    image: mysql:8.0
+  postgres:
+    container_name: fastorder-postgres
+    image: postgres
     restart: unless-stopped
     ports:
-      - "3316:3306"
+      - "5432:5432"
     env_file:
       - .env
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./etc/infrastructure/mysql/init:/docker-entrypoint-initdb.d
+      - ./etc/infrastructure/psql/init:/docker-entrypoint-initdb.d

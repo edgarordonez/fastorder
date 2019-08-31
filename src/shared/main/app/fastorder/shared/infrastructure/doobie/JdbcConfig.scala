@@ -7,7 +7,7 @@ object JdbcConfig {
     driver = config.getString("driver"),
     url = config.getString("url"),
     user = config.getString("user"),
-    password = config.getString("password"),
+    password = config.getString("password")
   )
 }
 

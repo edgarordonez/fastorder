@@ -5,11 +5,11 @@ import spray.json.{DeserializationException, JsString, JsValue, JsonFormat}
 
 object UuidJsonFormatMarshaller {
   implicit object UuidMarshaller extends JsonFormat[UUID] {
-    override def write(value: UUID): JsValue = JsString(value.toString)
+    override def write(obj: UUID): JsValue = JsString(obj.toString)
 
-    override def read(value: JsValue): UUID = value match {
-      case JsString(uuid) => UUID.fromString(uuid)
-      case unknown        => throw DeserializationException(s"Expected hexadecimal UUID string, got <$unknown>")
+    override def read(json: JsValue): UUID = json match {
+      case JsString(value) => UUID.fromString(value)
+      case unknown         => throw DeserializationException(s"Expected hexadecimal UUID string, got <$unknown>")
     }
   }
 }
