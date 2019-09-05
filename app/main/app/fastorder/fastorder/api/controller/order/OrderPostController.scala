@@ -14,10 +14,9 @@ final class OrderPostController(creator: OrderCreator) {
     waiterId: String,
     table: Int,
     drinks: Seq[OrderDrink],
-    food: Seq[OrderFood],
-    amount: Double
+    food: Seq[OrderFood]
   ): StandardRoute = {
-    creator.create(OrderId(id), WaiterId(waiterId), table, drinks, food, amount)
+    creator.create(OrderId(id), WaiterId(waiterId), table, drinks, food)
 
     complete(HttpResponse(Created))
   }

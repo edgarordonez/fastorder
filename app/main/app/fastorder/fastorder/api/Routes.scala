@@ -79,8 +79,7 @@ final class Routes(container: EntryPointDependencyContainer) {
             body("waiterId").convertTo[String],
             body("table").convertTo[Int],
             drinksToSeqOrderDrink(body("drinks")),
-            foodToSeqOrderFood(body("food")),
-            body("amount").convertTo[Double]
+            foodToSeqOrderFood(body("food"))
           )
         }
       }
