@@ -7,7 +7,7 @@ object Order {
     id: String,
     waiterId: String,
     table: Int,
-    drinks: String,
+    drinks: Seq[OrderDrink],
     food: String,
     amount: Double
   ): Order =
@@ -25,7 +25,7 @@ case class Order(
   id: OrderId,
   waiterId: WaiterId,
   table: Int,
-  drinks: String,
+  drinks: Seq[OrderDrink],
   food: String,
   amount: Double
 )

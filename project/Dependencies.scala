@@ -10,6 +10,7 @@ object Dependencies {
     val ScalaTest         = "3.0.8"
     val Doobie            = "0.6.0"
     val MysqlConnector    = "8.0.15"
+    val circeVersion = "0.11.1"
   }
 
   val shared = Seq(
@@ -22,6 +23,9 @@ object Dependencies {
     "org.tpolecat"           %% "doobie-core"          % Versions.Doobie,
     "mysql"                  % "mysql-connector-java"  % Versions.MysqlConnector,
     "org.postgresql"         % "postgresql"            % "42.2.6",
+    "io.circe" %% "circe-core" % Versions.circeVersion,
+    "io.circe" %% "circe-generic" % Versions.circeVersion,
+    "io.circe" %% "circe-parser" % Versions.circeVersion,
     "org.scalatest"          %% "scalatest"            % Versions.ScalaTest % Test,
     "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka      % Test,
     "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp  % Test
