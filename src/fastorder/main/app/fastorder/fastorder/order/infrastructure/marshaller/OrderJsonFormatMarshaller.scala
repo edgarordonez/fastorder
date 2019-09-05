@@ -1,7 +1,8 @@
 package app.fastorder.fastorder.order.infrastructure.marshaller
 
-import app.fastorder.fastorder.order.domain.{Order, OrderDrink}
+import app.fastorder.fastorder.order.domain.{Order, OrderDrink, OrderFood}
 import app.fastorder.fastorder.order.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
+import app.fastorder.fastorder.order.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
 import spray.json._
 
 object OrderJsonFormatMarshaller extends DefaultJsonProtocol {
@@ -11,7 +12,7 @@ object OrderJsonFormatMarshaller extends DefaultJsonProtocol {
       "waiter_id"    -> JsString(obj.waiterId.value.toString),
       "dinner_table" -> JsNumber(obj.table),
       "drinks"       -> obj.drinks.toJson,
-      "food"         -> JsonParser(obj.food),
+      "food"         -> obj.food.toJson,
       "amount"       -> JsNumber(obj.amount)
     )
 
@@ -25,7 +26,14 @@ object OrderJsonFormatMarshaller extends DefaultJsonProtocol {
             JsObject(food),
             JsNumber(amount)
             ) =>
-          Order(id, waiterId, table.toInt, drinks.toJson.convertTo[Seq[OrderDrink]], food.toString, amount.toDouble)
+          Order(
+            id,
+            waiterId,
+            table.toInt,
+            drinks.toJson.convertTo[Seq[OrderDrink]],
+            food.toJson.convertTo[Seq[OrderFood]],
+            amount.toDouble
+          )
         case unknown =>
           throw DeserializationException(
             s"Error reading VideoCreated JSON <$unknown>"

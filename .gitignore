@@ -9,3 +9,8 @@ __pycache__
 *.pyc
 src/*/target
 app/target
+*.crt
+*.csr
+*.key
+*.p12
+*.pem

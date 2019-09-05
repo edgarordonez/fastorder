@@ -1,6 +1,6 @@
 package app.fastorder.fastorder.order.application.create
 
-import app.fastorder.fastorder.order.domain.{Order, OrderId, OrderDrink, OrderRepository}
+import app.fastorder.fastorder.order.domain._
 import app.fastorder.fastorder.shared.domain.waiter.WaiterId
 
 final class OrderCreator(repository: OrderRepository) {
@@ -9,7 +9,7 @@ final class OrderCreator(repository: OrderRepository) {
     waiterId: WaiterId,
     table: Int,
     drinks: Seq[OrderDrink],
-    food: String,
+    food: Seq[OrderFood],
     amount: Double
   ): Unit = {
     val order: Order = Order(id, waiterId, table, drinks, food, amount)
