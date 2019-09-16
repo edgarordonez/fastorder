@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
   object Versions {
-    val Akka              = "2.5.23"
+    val Akka              = "2.5.25"
     val AkkaHttp          = "10.1.9"
     val AkkaHttpSprayJson = "10.1.9"
     val NScalaTime        = "2.22.0"
@@ -21,11 +21,12 @@ object Dependencies {
     "com.typesafe.akka"      %% "akka-http"            % Versions.AkkaHttp,
     "com.typesafe.akka"      %% "akka-http-spray-json" % Versions.AkkaHttpSprayJson,
     "org.tpolecat"           %% "doobie-core"          % Versions.Doobie,
+    "ch.megard"              %% "akka-http-cors"       % "0.4.1",
+    "io.circe"               %% "circe-core"           % Versions.circeVersion,
+    "io.circe"               %% "circe-generic"        % Versions.circeVersion,
+    "io.circe"               %% "circe-parser"         % Versions.circeVersion,
     "mysql"                  % "mysql-connector-java"  % Versions.MysqlConnector,
     "org.postgresql"         % "postgresql"            % "42.2.6",
-    "io.circe" %% "circe-core" % Versions.circeVersion,
-    "io.circe" %% "circe-generic" % Versions.circeVersion,
-    "io.circe" %% "circe-parser" % Versions.circeVersion,
     "org.scalatest"          %% "scalatest"            % Versions.ScalaTest % Test,
     "com.typesafe.akka"      %% "akka-testkit"         % Versions.Akka      % Test,
     "com.typesafe.akka"      %% "akka-http-testkit"    % Versions.AkkaHttp  % Test

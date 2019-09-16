@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FastOrder APP</title>
+</head>
+<body>
+<h1>FastOrder APP</h1>
+<div id="result"></div>
+<script>
+    var evtSource = new EventSource("https://localhost:8080/events");
+
+    evtSource.onmessage = function(e) {
+        document.getElementById("result").innerHTML += e.data + "<br>";
+    };
+
+    evtSource.onerror = function(e) {
+        console.log(e);
+        console.log(e.data);
+    };
+</script>
+</body>
+</html>

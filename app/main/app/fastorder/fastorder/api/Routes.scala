@@ -3,11 +3,12 @@ package app.fastorder.fastorder.api
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.stream.ActorMaterializer
 import app.fastorder.fastorder.order.domain.{OrderDrink, OrderFood}
 import spray.json.DefaultJsonProtocol._
 import spray.json._
 
-final class Routes(container: EntryPointDependencyContainer) {
+final class Routes(container: EntryPointDependencyContainer)(implicit val materializer: ActorMaterializer) {
   private val status = get {
     path("status")(container.statusGetController.get())
   }
@@ -85,6 +86,18 @@ final class Routes(container: EntryPointDependencyContainer) {
       }
     }
   }
+
+  /*  private val greeterWebSocketService =
+    Flow[Message]
+      .collect {
+        case tm: TextMessage => TextMessage(Source.single("LOOOL! ") ++ tm.textStream)
+      }
+
+  private val webSocketMessages = {
+    get {
+      path("greeter")(handleWebSocketMessages(greeterWebSocketService))
+    }
+  }*/
 
   private def jsonBody(handler: Map[String, JsValue] => Route): Route =
     entity(as[JsValue])(json => handler(json.asJsObject.fields))
