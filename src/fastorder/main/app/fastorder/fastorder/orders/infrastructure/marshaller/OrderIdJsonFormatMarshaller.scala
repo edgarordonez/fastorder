@@ -1,9 +1,9 @@
-package app.fastorder.fastorder.order.infrastructure.marshaller
+package app.fastorder.fastorder.orders.infrastructure.marshaller
 
 import java.util.UUID
 import spray.json._
 import app.fastorder.shared.infrastructure.marshaller.UuidJsonFormatMarshaller._
-import app.fastorder.fastorder.order.domain.OrderId
+import app.fastorder.fastorder.orders.domain.OrderId
 
 object OrderIdJsonFormatMarshaller extends DefaultJsonProtocol {
   implicit object OrderIdMarshaller extends JsonFormat[OrderId] {

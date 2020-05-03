@@ -1,18 +1,18 @@
-package app.fastorder.fastorder.order.infrastructure.marshaller
+package app.fastorder.fastorder.orders.infrastructure.marshaller
 
-import app.fastorder.fastorder.order.domain.OrderDrink
+import app.fastorder.fastorder.orders.domain.OrderFood
 import spray.json._
 
-object OrderDrinkJsonFormatMarshaller extends DefaultJsonProtocol {
-  implicit object OrderDrinkFormat extends JsonFormat[OrderDrink] {
-    override def write(obj: OrderDrink): JsValue = JsObject(
+object OrderFoodJsonFormatMarshaller extends DefaultJsonProtocol {
+  implicit object OrderFoodFormat extends JsonFormat[OrderFood] {
+    override def write(obj: OrderFood): JsValue = JsObject(
       "id"       -> JsString(obj.id),
       "name"     -> JsString(obj.name),
       "price"    -> JsNumber(obj.price),
       "quantity" -> JsNumber(obj.quantity)
     )
 
-    override def read(json: JsValue): OrderDrink =
+    override def read(json: JsValue): OrderFood =
       json.asJsObject.getFields("id", "name", "price", "quantity") match {
         case Seq(
             JsString(id),
@@ -20,10 +20,10 @@ object OrderDrinkJsonFormatMarshaller extends DefaultJsonProtocol {
             JsNumber(price),
             JsNumber(quantity)
             ) =>
-          OrderDrink(id, name, price.toDouble, quantity.toInt)
+          OrderFood(id, name, price.toDouble, quantity.toInt)
         case unknown =>
           throw DeserializationException(
-            s"Error reading VideoCreated JSON <$unknown>"
+            s"Error reading OrderFood JSON <$unknown>"
           )
       }
   }

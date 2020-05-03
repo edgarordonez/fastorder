@@ -3,7 +3,7 @@ package app.fastorder.fastorder.api
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import app.fastorder.fastorder.order.domain.{OrderDrink, OrderFood}
+import app.fastorder.fastorder.orders.domain.{OrderDrink, OrderFood}
 import spray.json.DefaultJsonProtocol._
 import spray.json._
 
@@ -58,13 +58,13 @@ final class Routes(container: EntryPointDependencyContainer) {
 
   private val orders = {
     val drinksToSeqOrderDrink = (obj: JsValue) => {
-      import app.fastorder.fastorder.order.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
+      import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
 
       obj.convertTo[Seq[OrderDrink]]
     }
 
     val foodToSeqOrderFood = (obj: JsValue) => {
-      import app.fastorder.fastorder.order.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
+      import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
 
       obj.convertTo[Seq[OrderFood]]
     }

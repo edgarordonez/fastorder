@@ -1,6 +1,6 @@
 disablePlugins(AssemblyPlugin)
 
-Configuration.commonSettings
+Config.commonSettings
 
 Compile / scalaSource := baseDirectory.value / "main/"
 Test / scalaSource := baseDirectory.value / "test/"

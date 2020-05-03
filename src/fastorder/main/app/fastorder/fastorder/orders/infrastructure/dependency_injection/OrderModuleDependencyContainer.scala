@@ -1,8 +1,8 @@
-package app.fastorder.fastorder.order.infrastructure.dependency_injection
+package app.fastorder.fastorder.orders.infrastructure.dependency_injection
 
-import app.fastorder.fastorder.order.application.create.OrderCreator
-import app.fastorder.fastorder.order.application.search.OrderSearcher
-import app.fastorder.fastorder.order.infrastructure.repository.DoobieMySqlOrderRepository
+import app.fastorder.fastorder.orders.application.create.OrderCreator
+import app.fastorder.fastorder.orders.application.search.OrderSearcher
+import app.fastorder.fastorder.orders.infrastructure.repository.DoobieMySqlOrderRepository
 import app.fastorder.shared.infrastructure.doobie.DoobieDbConnection
 
 import scala.concurrent.ExecutionContext

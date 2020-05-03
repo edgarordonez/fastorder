@@ -1,25 +1,10 @@
 import sbt.{Tests, _}
 import sbt.Keys._
 
-object Configuration {
+object Config {
   val commonSettings = Seq(
     organization := "app.fastorder",
-    scalaVersion := "2.12.8",
-    scalacOptions := {
-      val default = Seq(
-        "-deprecation",
-        "-feature",
-        "-unchecked",
-        "-Xlint",
-        "-Ywarn-dead-code",
-        "-Ywarn-unused",
-        "-Ywarn-unused-import",
-        "-Xcheckinit"
-      )
-      if (version.value.endsWith("SNAPSHOT")) {
-        default :+ "-Xcheckinit"
-      } else { default }
-    },
+    scalaVersion := "2.13.2",
     scalacOptions in (Test, console) --= Seq("-Ywarn-unused:imports", "-Xfatal-warnings"),
     scalacOptions in (Test, console) ++= Seq("-Ywarn-unused:-imports"),
     javaOptions += "-Duser.timezone=UTC",

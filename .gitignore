@@ -1,6 +1,8 @@
 *.class
 *.log
 .idea
+.bloop
+.metals
 .env
 target
 project/target

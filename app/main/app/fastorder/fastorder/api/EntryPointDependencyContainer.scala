@@ -8,7 +8,7 @@ import app.fastorder.fastorder.api.controller.order.{OrderGetController, OrderPo
 import app.fastorder.fastorder.waiters.infrastructure.dependency_injection.WaiterModuleDependencyContainer
 import app.fastorder.fastorder.drinks.infrastructure.dependency_injection.DrinkModuleDependencyContainer
 import app.fastorder.fastorder.food.infrastructure.dependency_injection.FoodModuleDependencyContainer
-import app.fastorder.fastorder.order.infrastructure.dependency_injection.OrderModuleDependencyContainer
+import app.fastorder.fastorder.orders.infrastructure.dependency_injection.OrderModuleDependencyContainer
 
 final class EntryPointDependencyContainer(
   waiterDependencies: WaiterModuleDependencyContainer,

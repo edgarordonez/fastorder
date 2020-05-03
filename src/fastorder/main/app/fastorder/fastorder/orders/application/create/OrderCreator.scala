@@ -1,6 +1,6 @@
-package app.fastorder.fastorder.order.application.create
+package app.fastorder.fastorder.orders.application.create
 
-import app.fastorder.fastorder.order.domain._
+import app.fastorder.fastorder.orders.domain._
 import app.fastorder.fastorder.shared.domain.waiter.WaiterId
 
 final class OrderCreator(repository: OrderRepository) {

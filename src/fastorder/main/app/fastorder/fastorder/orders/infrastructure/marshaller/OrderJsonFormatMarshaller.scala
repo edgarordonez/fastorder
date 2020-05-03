@@ -1,8 +1,8 @@
-package app.fastorder.fastorder.order.infrastructure.marshaller
+package app.fastorder.fastorder.orders.infrastructure.marshaller
 
-import app.fastorder.fastorder.order.domain.{Order, OrderDrink, OrderFood}
-import app.fastorder.fastorder.order.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
-import app.fastorder.fastorder.order.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
+import app.fastorder.fastorder.orders.domain.{Order, OrderDrink, OrderFood}
+import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
+import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
 import spray.json._
 
 object OrderJsonFormatMarshaller extends DefaultJsonProtocol {
@@ -36,7 +36,7 @@ object OrderJsonFormatMarshaller extends DefaultJsonProtocol {
           )
         case unknown =>
           throw DeserializationException(
-            s"Error reading VideoCreated JSON <$unknown>"
+            s"Error reading Order JSON <$unknown>"
           )
       }
   }

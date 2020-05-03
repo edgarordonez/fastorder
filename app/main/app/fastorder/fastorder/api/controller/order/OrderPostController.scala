@@ -4,8 +4,8 @@ import akka.http.scaladsl.model.HttpResponse
 import akka.http.scaladsl.model.StatusCodes.Created
 import akka.http.scaladsl.server.Directives.complete
 import akka.http.scaladsl.server.StandardRoute
-import app.fastorder.fastorder.order.application.create.OrderCreator
-import app.fastorder.fastorder.order.domain.{OrderDrink, OrderFood, OrderId}
+import app.fastorder.fastorder.orders.application.create.OrderCreator
+import app.fastorder.fastorder.orders.domain.{OrderDrink, OrderFood, OrderId}
 import app.fastorder.fastorder.shared.domain.waiter.WaiterId
 
 final class OrderPostController(creator: OrderCreator) {

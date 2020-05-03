@@ -1,6 +1,6 @@
-package app.fastorder.fastorder.order.infrastructure.repository
+package app.fastorder.fastorder.orders.infrastructure.repository
 
-import app.fastorder.fastorder.order.domain.{Order, OrderRepository}
+import app.fastorder.fastorder.orders.domain.{Order, OrderRepository}
 import app.fastorder.fastorder.shared.infrastructure.doobie.TypesConversions._
 import app.fastorder.shared.infrastructure.doobie.DoobieDbConnection
 import doobie.implicits._
@@ -16,13 +16,13 @@ final class DoobieMySqlOrderRepository(db: DoobieDbConnection)(implicit executio
 
   override def save(order: Order): Future[Unit] = {
     val orderDrinksToString = (order: Order) => {
-      import app.fastorder.fastorder.order.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
+      import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderDrinkJsonFormatMarshaller._
 
       order.drinks.toJson.toString
     }
 
     val orderFoodToString = (order: Order) => {
-      import app.fastorder.fastorder.order.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
+      import app.fastorder.fastorder.orders.infrastructure.marshaller.OrderFoodJsonFormatMarshaller._
 
       order.food.toJson.toString
     }

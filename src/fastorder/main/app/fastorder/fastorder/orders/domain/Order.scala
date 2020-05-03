@@ -1,4 +1,4 @@
-package app.fastorder.fastorder.order.domain
+package app.fastorder.fastorder.orders.domain
 
 import app.fastorder.fastorder.shared.domain.waiter.WaiterId
 

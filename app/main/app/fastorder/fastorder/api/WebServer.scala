@@ -5,10 +5,10 @@ import scala.concurrent.ExecutionContextExecutor
 import com.typesafe.config.ConfigFactory
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
+import akka.stream.Materializer
 import app.fastorder.fastorder.drinks.infrastructure.dependency_injection.DrinkModuleDependencyContainer
 import app.fastorder.fastorder.food.infrastructure.dependency_injection.FoodModuleDependencyContainer
-import app.fastorder.fastorder.order.infrastructure.dependency_injection.OrderModuleDependencyContainer
+import app.fastorder.fastorder.orders.infrastructure.dependency_injection.OrderModuleDependencyContainer
 import app.fastorder.fastorder.waiters.infrastructure.dependency_injection.WaiterModuleDependencyContainer
 import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
 import app.fastorder.shared.infrastructure.doobie.JdbcConfig
@@ -27,7 +27,7 @@ object WebServer {
     val sharedDependencies = new SharedModuleDependencyContainer(actorSystemName, dbConfig)
 
     implicit val system: ActorSystem                        = sharedDependencies.system
-    implicit val materializer: ActorMaterializer            = sharedDependencies.materializer
+    implicit val materializer: Materializer            = sharedDependencies.materializer
     implicit val executionContext: ExecutionContextExecutor = sharedDependencies.executionContext
 
     val container = new EntryPointDependencyContainer(

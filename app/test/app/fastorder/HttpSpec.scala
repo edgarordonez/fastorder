@@ -1,7 +1,8 @@
 package app.fastorder
 
-import com.typesafe.config.ConfigFactory
-import org.scalatest.{Matchers, WordSpec}
+import com.typesafe.config.{Config, ConfigFactory}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.concurrent.ScalaFutures
 import akka.http.scaladsl.model.{HttpEntity, HttpMethods, HttpRequest, MediaTypes}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
@@ -9,16 +10,16 @@ import akka.util.ByteString
 import app.fastorder.fastorder.api.{EntryPointDependencyContainer, Routes}
 import app.fastorder.fastorder.drinks.infrastructure.dependency_injection.DrinkModuleDependencyContainer
 import app.fastorder.fastorder.food.infrastructure.dependency_injection.FoodModuleDependencyContainer
-import app.fastorder.fastorder.order.infrastructure.dependency_injection.OrderModuleDependencyContainer
+import app.fastorder.fastorder.orders.infrastructure.dependency_injection.OrderModuleDependencyContainer
 import app.fastorder.fastorder.waiters.infrastructure.dependency_injection.WaiterModuleDependencyContainer
 import app.fastorder.shared.infrastructure.dependency_injection.SharedModuleDependencyContainer
 import app.fastorder.shared.infrastructure.doobie.{DoobieDbConnection, JdbcConfig}
 
-abstract class HttpSpec extends WordSpec with Matchers with ScalaFutures with ScalatestRouteTest {
-  val appConfig       = ConfigFactory.load("application")
-  val actorSystemName = appConfig.getString("main-actor-system.name")
+abstract class HttpSpec extends AnyWordSpec with Matchers with ScalaFutures with ScalatestRouteTest {
+  val appConfig: Config = ConfigFactory.load("application")
+  val actorSystemName: String = appConfig.getString("main-actor-system.name")
 
-  val dbConfig = JdbcConfig(appConfig.getConfig("acceptance-tests-database"))
+  val dbConfig: JdbcConfig = JdbcConfig(appConfig.getConfig("acceptance-tests-database"))
 
   val sharedDependencies = new SharedModuleDependencyContainer(actorSystemName, dbConfig)
 
